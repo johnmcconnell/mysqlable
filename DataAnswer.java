@@ -40,7 +40,36 @@ public class DataAnswer {
     }
   }
 
-  public static create(class_name object) {
-  }
+  public static final class DataSource {
+    private OpenHelper dbHelper;
 
+    public static DataAnswer find(Integer i) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      Cursor cursor = db.query(TABLE_NAME, null, null,
+          null, null, null, null, "1");
+
+      DataAnswer object = null;
+      if (cursor.moveToFirst()) {
+        object = new DataAnswer(cursor);
+      }
+
+      db.close();
+      cursor.close();
+      return object;
+    }
+
+    public static void create(DataAnswer object) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      ContentValues values = object.getContentValues();
+      db.insert(UserProfile.Contract.TABLE_NAME, null, values);
+      db.close();
+    }
+
+    public static void create(DataAnswer object) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      ContentValues values = object.getContentValues();
+      db.update(UserProfile.Contract.TABLE_NAME, null, values);
+      db.close();
+    }
+  }
 }

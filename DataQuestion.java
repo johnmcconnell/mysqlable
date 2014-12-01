@@ -42,7 +42,36 @@ public class DataQuestion {
     }
   }
 
-  public static create(class_name object) {
-  }
+  public static final class DataSource {
+    private OpenHelper dbHelper;
 
+    public static DataQuestion find(Integer i) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      Cursor cursor = db.query(TABLE_NAME, null, null,
+          null, null, null, null, "1");
+
+      DataQuestion object = null;
+      if (cursor.moveToFirst()) {
+        object = new DataQuestion(cursor);
+      }
+
+      db.close();
+      cursor.close();
+      return object;
+    }
+
+    public static void create(DataQuestion object) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      ContentValues values = object.getContentValues();
+      db.insert(UserProfile.Contract.TABLE_NAME, null, values);
+      db.close();
+    }
+
+    public static void create(DataQuestion object) {
+      SQLiteDatabase db = dbHelper.getWritableDatabase();
+      ContentValues values = object.getContentValues();
+      db.update(UserProfile.Contract.TABLE_NAME, null, values);
+      db.close();
+    }
+  }
 }
