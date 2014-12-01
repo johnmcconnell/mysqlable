@@ -1,0 +1,11 @@
+{
+  "name": "test",
+  "fields": {
+    "text": {
+      "type": "String"
+    },
+    "question": {
+      "reference_to": "Question"
+    }
+  }
+}

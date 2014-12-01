@@ -1,0 +1,11 @@
+{
+  "name": "answer",
+  "fields": {
+    "text": {
+      "type": "String"
+    },
+    "valid": {
+      "type": "Boolean"
+    }
+  }
+}

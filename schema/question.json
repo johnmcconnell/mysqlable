@@ -1,0 +1,14 @@
+{
+  "name": "question",
+  "fields": {
+    "type": {
+      "type": "String"
+    },
+    "text": {
+      "type": "String"
+    },
+    "answers": {
+      "references_to": "answer"
+    }
+  }
+}

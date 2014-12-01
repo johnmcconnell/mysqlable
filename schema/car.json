@@ -1,0 +1,14 @@
+{
+  "name" : "Car",
+  "fields" : {
+    "color" : {
+      "type" :"String"
+    },
+    "manufacturer" : {
+      "reference_to" : "CarCompany"
+    },
+    "wheels" : {
+      "references_to" : "Wheel"
+    }
+  }
+}
