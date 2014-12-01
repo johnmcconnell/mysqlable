@@ -1,17 +1,26 @@
 require 'erb'
 
-class JavaBuilder
+class MysqlBuilder
   attr_reader :model
   def render(model)
     @model = model
     template = File.read(
-      File.expand_path(File.join('..', '..', 'templates', 'java.erb'), __FILE__)
+      File.expand_path(File.join('..', '..', 'templates', 'mysql.erb'), __FILE__)
     )
     ERB.new(template, nil, '-').result get_binding
   end
 
   def class_name
-    "JSON#{camel_case model.name}"
+    "Data#{camel_case model.name}"
+  end
+
+  def columns
+    fields.map do |field|
+      field.merge({
+        field: field[:name],
+        name: stringify(field[:name])
+      })
+    end
   end
 
   def fields
@@ -19,6 +28,10 @@ class JavaBuilder
       { type: field_type(field),
         name: field_name(field) }
     end
+  end
+
+  def stringify(text)
+    '"' + text.gsub('"','\"') + '"'
   end
 
   def getters

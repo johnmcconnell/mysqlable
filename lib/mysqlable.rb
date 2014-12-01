@@ -2,7 +2,7 @@ require 'mysqlable/version'
 require 'json'
 require 'schema'
 require 'model'
-require 'java_builder'
+require 'mysql_builder'
 
 module Mysqlable
   def self.parse_schemas(files)
@@ -18,7 +18,7 @@ module Mysqlable
   def self.create_source(opts)
     out_dir = opts[:into]
     opts[:models].each do |model|
-      file_path = File.join(out_dir, "JSON#{model.name.capitalize}.java")
+      file_path = File.join(out_dir, "Data#{model.name.capitalize}.java")
       write_model(file_path, model)
     end
   end
@@ -30,6 +30,6 @@ module Mysqlable
   end
 
   def self.render(model)
-    JavaBuilder.new.render model
+    MysqlBuilder.new.render model
   end
 end
